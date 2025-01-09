@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+group = 'multiffi'
+version = '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_22
+targetCompatibility = JavaVersion.VERSION_22
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'io.github.multiffi:multiffi-ffi-core:1.0.0'
+    implementation 'io.github.multiffi:multiffi-ffi-jna:1.0.0'
+    implementation 'io.github.multiffi:multiffi-ffi-jnr:1.0.0'
+    implementation 'io.github.multiffi:multiffi-ffi-ffm:1.0.0'
+
+    implementation 'org.openjdk.jmh:jmh-core:1.37'
+    annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(Test).configureEach {
+    jvmArgs += '--enable-native-access=ALL-UNNAMED'
+}
+
+tasks.withType(JavaExec).configureEach {
+    jvmArgs += '--enable-native-access=ALL-UNNAMED'
+}
+
+tasks.register('jmh', JavaExec) {
+    dependsOn 'classes'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'multiffi.ffi.benchmark.FFIBenchmark'
+}
