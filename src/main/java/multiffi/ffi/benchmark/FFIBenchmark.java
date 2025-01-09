@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @Threads(1)
 @Fork(1)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Warmup(time = 1, iterations = 5)
+@Warmup(iterations = 3)
 @Measurement(iterations = 5)
 public class FFIBenchmark {
 
@@ -185,28 +185,28 @@ public class FFIBenchmark {
 
     @Benchmark
     public void measureJFFIReturnVoid(Blackhole blackhole) {
-        JNRLibrary.INSTANCE.return_void();
+        JFFILibrary.INSTANCE.return_void();
         blackhole.consume(0);
     }
 
     @Benchmark
     public void measureJFFIReturnInt(Blackhole blackhole) {
-        blackhole.consume(JNRLibrary.INSTANCE.return_int());
+        blackhole.consume(JFFILibrary.INSTANCE.return_int());
     }
 
     @Benchmark
     public void measureJFFIReturnIntI(Blackhole blackhole) {
-        blackhole.consume(JNRLibrary.INSTANCE.return_int_i(0));
+        blackhole.consume(JFFILibrary.INSTANCE.return_int_i(0));
     }
 
     @Benchmark
     public void measureJFFIReturnDouble(Blackhole blackhole) {
-        blackhole.consume(JNRLibrary.INSTANCE.return_double());
+        blackhole.consume(JFFILibrary.INSTANCE.return_double());
     }
 
     @Benchmark
     public void measureJFFIReturnDoubleD(Blackhole blackhole) {
-        blackhole.consume(JNRLibrary.INSTANCE.return_double_d(0));
+        blackhole.consume(JFFILibrary.INSTANCE.return_double_d(0));
     }
 
     @Benchmark
