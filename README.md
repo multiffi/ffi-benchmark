@@ -46,7 +46,7 @@ CPU: Intel® Core™ i7-1165G7 @ 2.80GHz
 OS: GNU/Linux  
 JDK: Eclipse Temurin JDK 23.0.1+11  
 VM: OpenJDK 64-Bit Server VM, 23.0.1+11  
-JMH version: 1.37
+JMH version: 1.37  
 Blackhole mode: compiler (auto-detected)  
 Warmup: 3 iterations, 10 s each  
 Measurement: 5 iterations, 10 s each  
