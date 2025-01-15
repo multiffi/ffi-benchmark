@@ -132,6 +132,32 @@ public class FFIBenchmark {
     }
 
     @Benchmark
+    public void measureJNAFunctionReturnVoid(Blackhole blackhole) {
+        JNAFunction.returnVoidFunction.invokeVoid(new Object[0]);
+        blackhole.consume(0);
+    }
+
+    @Benchmark
+    public void measureJNAFunctionReturnInt(Blackhole blackhole) {
+        blackhole.consume(JNAFunction.returnIntFunction.invokeInt(new Object[0]));
+    }
+
+    @Benchmark
+    public void measureJNAFunctionReturnIntI(Blackhole blackhole) {
+        blackhole.consume(JNAFunction.returnIntIFunction.invokeInt(new Object[] { 0 }));
+    }
+
+    @Benchmark
+    public void measureJNAFunctionReturnDouble(Blackhole blackhole) {
+        blackhole.consume(JNAFunction.returnDoubleDFunction.invokeDouble(new Object[0]));
+    }
+
+    @Benchmark
+    public void measureJNAFunctionReturnDoubleD(Blackhole blackhole) {
+        blackhole.consume(JNAFunction.returnDoubleDFunction.invokeDouble(new Object[] { 0.0 }));
+    }
+
+    @Benchmark
     public void measureJNADirectReturnVoid(Blackhole blackhole) {
         JNADirect.return_void();
         blackhole.consume(0);
@@ -363,6 +389,58 @@ public class FFIBenchmark {
     @Benchmark
     public void measureMultiffiFFMCriticalProxyReturnDoubleD(Blackhole blackhole) {
         blackhole.consume(MultiffiLibrary.INSTANCE_FFM_CRITICAL.return_double_d(0));
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMProxyReturnVoid(Blackhole blackhole) {
+        MultiffiLibrary.INSTANCE_FFM_NOASM.return_void();
+        blackhole.consume(0);
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMProxyReturnInt(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM.return_int());
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMProxyReturnIntI(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM.return_int_i(0));
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMProxyReturnDouble(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM.return_double());
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMProxyReturnDoubleD(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM.return_double_d(0));
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMCriticalProxyReturnVoid(Blackhole blackhole) {
+        MultiffiLibrary.INSTANCE_FFM_NOASM_CRITICAL.return_void();
+        blackhole.consume(0);
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMCriticalProxyReturnInt(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM_CRITICAL.return_int());
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMCriticalProxyReturnIntI(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM_CRITICAL.return_int_i(0));
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMCriticalProxyReturnDouble(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM_CRITICAL.return_double());
+    }
+
+    @Benchmark
+    public void measureMultiffiFFMNoASMCriticalProxyReturnDoubleD(Blackhole blackhole) {
+        blackhole.consume(MultiffiLibrary.INSTANCE_FFM_NOASM_CRITICAL.return_double_d(0));
     }
 
     @Benchmark

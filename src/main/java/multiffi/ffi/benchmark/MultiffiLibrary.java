@@ -1,14 +1,21 @@
 package multiffi.ffi.benchmark;
 
 import multiffi.ffi.CallOption;
-import multiffi.ffi.SimpleCallOptionVisitor;
+import multiffi.ffi.SimpleFunctionOptionVisitor;
 import multiffi.ffi.StandardCallOption;
 
 import java.lang.reflect.Method;
 
 public interface MultiffiLibrary {
     MultiffiLibrary INSTANCE_FFM = Multiffi.FFM.downcallProxy(MultiffiLibrary.class);
-    MultiffiLibrary INSTANCE_FFM_CRITICAL = Multiffi.FFM.downcallProxy(MultiffiLibrary.class, new SimpleCallOptionVisitor() {
+    MultiffiLibrary INSTANCE_FFM_CRITICAL = Multiffi.FFM.downcallProxy(MultiffiLibrary.class, new SimpleFunctionOptionVisitor() {
+        @Override
+        public CallOption[] visitCallOptions(Method method) {
+            return new CallOption[] { StandardCallOption.TRIVIAL };
+        }
+    });
+    MultiffiLibrary INSTANCE_FFM_NOASM = Multiffi.FFM_NOASM.downcallProxy(MultiffiLibrary.class);
+    MultiffiLibrary INSTANCE_FFM_NOASM_CRITICAL = Multiffi.FFM_NOASM.downcallProxy(MultiffiLibrary.class, new SimpleFunctionOptionVisitor() {
         @Override
         public CallOption[] visitCallOptions(Method method) {
             return new CallOption[] { StandardCallOption.TRIVIAL };

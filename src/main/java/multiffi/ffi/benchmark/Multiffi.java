@@ -7,8 +7,6 @@ import multiffi.ffi.Foreign;
 import multiffi.ffi.spi.ForeignProvider;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 
 public final class Multiffi {
 
@@ -20,19 +18,17 @@ public final class Multiffi {
     public static final ForeignProvider FFM = DEFAULT instanceof FFMForeignProvider ? DEFAULT : new FFMForeignProvider();
     public static final ForeignProvider JNA = DEFAULT instanceof JNAForeignProvider ? DEFAULT : new JNAForeignProvider();
     public static final ForeignProvider JNR = DEFAULT instanceof JNRForeignProvider ? DEFAULT : new JNRForeignProvider();
-    public static final ForeignProvider JNA_NOASM = new JNAForeignProvider(true);
-    public static final ForeignProvider JNR_NOASM = new JNRForeignProvider(true);
+    public static final ForeignProvider FFM_NOASM = new FFMForeignProvider(false);
+    public static final ForeignProvider JNA_NOASM = new JNAForeignProvider(false);
+    public static final ForeignProvider JNR_NOASM = new JNRForeignProvider(false);
 
     static {
-        try {
-            FFM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
-            JNA.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
-            JNA_NOASM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
-            JNR.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
-            JNR_NOASM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        FFM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
+        FFM_NOASM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
+        JNA.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
+        JNA_NOASM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
+        JNR.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
+        JNR_NOASM.loadLibrary(new File(Foreign.mapLibraryName("benchmark")));
     }
 
 }

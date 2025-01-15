@@ -7,7 +7,7 @@ import multiffi.ffi.ScalarType;
 public final class MultiffiJNR {
 
     private MultiffiJNR() {
-        throw new AssertionError("No multiffi.ffi.benchmark.MultiffiFFM instances for you!");
+        throw new AssertionError("No multiffi.ffi.benchmark.MultiffiJNR instances for you!");
     }
 
     public static final FunctionHandle hReturnVoid, hReturnInt, hReturnIntI, hReturnDouble, hReturnDoubleD;
